@@ -23,9 +23,9 @@
 
 /* GPS and Magnetic sensor share the same enabling IO line */
 #define SMBA1002_GPSMAG_DISABLE  	TEGRA_GPIO_PV3 	/* 0= disabled */
-#define SMBA1002_3G_DISABLE		TEGRA_GPIO_PB0 /* 0 = disabled */
-#define SMBA1002_KEY_VOLUMEUP 	TEGRA_GPIO_PD4 	/* 0=pressed */
-#define SMBA1002_KEY_VOLUMEDOWN 	TEGRA_GPIO_PV4 	/* 0=pressed */
+#define SMBA1002_3G_DISABLE		TEGRA_GPIO_PB0 	/* 0= disabled */
+#define SMBA1002_KEY_VOLUMEUP 	TEGRA_GPIO_PV4 	/* 0=pressed */
+#define SMBA1002_KEY_VOLUMEDOWN 	TEGRA_GPIO_PD4 	/* 0=pressed */
 #define SMBA1002_KEY_POWER 		TEGRA_GPIO_PV2 	/* 0=pressed */
 #define SMBA1002_KEY_BACK		TEGRA_GPIO_PH0	/* 0=pressed */
 
@@ -42,11 +42,11 @@
 
 #define SMBA1002_NAND_WPN		TEGRA_GPIO_PC7	/* NAND flash write protect: 0=writeprotected */
 
-#define SMBA1002_BL_ENB			TEGRA_GPIO_PD3
+#define SMBA1002_BL_ENB		TEGRA_GPIO_PD3
 #define SMBA1002_LVDS_SHUTDOWN	TEGRA_GPIO_PB2 // Is this right?
 #define SMBA1002_EN_VDD_PANEL	TEGRA_GPIO_PC6 
-#define SMBA1002_BL_VDD			TEGRA_GPIO_PW0
-#define SMBA1002_BL_PWM			TEGRA_GPIO_PU3 /* PWM */
+#define SMBA1002_BL_VDD		TEGRA_GPIO_PW0
+#define SMBA1002_BL_PWM		TEGRA_GPIO_PU3 /* PWM */
 #define SMBA1002_HDMI_ENB		TEGRA_GPIO_PV5 /* unconfirmed */ // Does smba1002 have HDMI enbl?
 #define SMBA1002_HDMI_HPD		TEGRA_GPIO_PN7 /* 1=HDMI plug detected */
 
@@ -111,7 +111,7 @@
 #define SMBA1002_LOW_BATT	TEGRA_GPIO_PW3 /*(0=low battery)*/
 #define SMBA1002_IN_S3		TEGRA_GPIO_PAA7 /*1 = in S3 */
 
-//#define SMBA1002_USB0_VBUS	TEGRA_GPIO_PB0		/* 1= VBUS usb0 */
+#define SMBA1002_USB0_VBUS	TEGRA_GPIO_PB0		/* 1= VBUS usb0 */
 #define SMBA1002_USB1_RESET		TEGRA_GPIO_PV1	/* 0= reset */
 
 #define SMBA1002_HP_DETECT	TEGRA_GPIO_PW2 	/* HeadPhone detect for audio codec: 1=Hedphone plugged */
