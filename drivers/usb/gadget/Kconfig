@@ -851,6 +851,17 @@ config USB_ANDROID_ACM
 	help
 	  Provides ACM serial function for android gadget driver.
 
+config USB_G_SERIAL_CONSOLE
+	bool "Serial Gadget Console Support"
+	depends on USB_ANDROID_ACM
+	help
+	  Support for console on ttyGS devices.  Note this is not an
+	  "early console" and since the USB system takes a while to
+	  come up, this is generally not going to help debug early
+	  boot oopses.  However, early messages will be dumped to
+	  the console if the kernel manages to stay up long enough
+	  for the console to instantiate.
+
 config USB_ANDROID_ADB
 	boolean "Android gadget adb function"
 	depends on USB_ANDROID
