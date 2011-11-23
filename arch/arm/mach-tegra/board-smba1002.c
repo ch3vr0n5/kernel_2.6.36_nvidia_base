@@ -318,10 +318,12 @@ NvBootArgs.MemHandleArgs[NvBootArgs.FramebufferArgs.MemHandleKey - ATAG_NVIDIA_P
 tegra_bootloader_fb_start = NvBootArgs.MemHandleArgs[NvBootArgs.FramebufferArgs.MemHandleKey - ATAG_NVIDIA_PRESERVED_MEM_0].Address;
 tegra_bootloader_fb_size = NvBootArgs.MemHandleArgs[NvBootArgs.FramebufferArgs.MemHandleKey - ATAG_NVIDIA_PRESERVED_MEM_0].Size;
 
-pr_info("Nvidia TAG: framebuffer: %u @ 0x%08lx\n",tegra_bootloader_fb_size,tegra_bootloader_fb_start);
+pr_info("Nvidia TAG: framebuffer: %lu @ 0x%08lx\n",tegra_bootloader_fb_size,tegra_bootloader_fb_start);
 tegra_bootloader_fb_start = tegra_bootloader_fb_size = 0;
 }
 
+// LP0 is broken right now. TODO: fix this to reduce power usage during standby...
+#if 0
 /* If the LP0 vector is found, use it */
 if (tegra_lp0_vec_start == 0 && tegra_lp0_vec_size == 0 &&
 NvBootArgs.WarmbootArgs.MemHandleKey >= ATAG_NVIDIA_PRESERVED_MEM_0 &&
@@ -336,6 +338,7 @@ pr_info("Nvidia TAG: LP0: %u @ 0x%08lx\n",tegra_lp0_vec_size,tegra_lp0_vec_start
 // tegra_lp0_vec_start = tegra_lp0_vec_size = 0;
 
 }
+#endif
 
 return 0;
 }
