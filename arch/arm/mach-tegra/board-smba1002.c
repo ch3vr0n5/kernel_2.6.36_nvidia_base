@@ -323,7 +323,7 @@ tegra_bootloader_fb_start = tegra_bootloader_fb_size = 0;
 }
 
 // LP0 is broken right now. TODO: fix this to reduce power usage during standby...
-#if 0
+#if 1
 /* If the LP0 vector is found, use it */
 if (tegra_lp0_vec_start == 0 && tegra_lp0_vec_size == 0 &&
 NvBootArgs.WarmbootArgs.MemHandleKey >= ATAG_NVIDIA_PRESERVED_MEM_0 &&
@@ -334,7 +334,7 @@ NvBootArgs.MemHandleArgs[NvBootArgs.WarmbootArgs.MemHandleKey - ATAG_NVIDIA_PRES
 tegra_lp0_vec_start = NvBootArgs.MemHandleArgs[NvBootArgs.WarmbootArgs.MemHandleKey - ATAG_NVIDIA_PRESERVED_MEM_0].Address;
 tegra_lp0_vec_size = NvBootArgs.MemHandleArgs[NvBootArgs.WarmbootArgs.MemHandleKey - ATAG_NVIDIA_PRESERVED_MEM_0].Size;
 
-pr_info("Nvidia TAG: LP0: %u @ 0x%08lx\n",tegra_lp0_vec_size,tegra_lp0_vec_start);
+pr_info("Nvidia TAG: LP0: %lu @ 0x%08lx\n",tegra_lp0_vec_size,tegra_lp0_vec_start);
 // tegra_lp0_vec_start = tegra_lp0_vec_size = 0;
 
 }
@@ -523,7 +523,8 @@ static struct tegra_suspend_platform_data smba1002_suspend = {
 .core_off_timer = 0, // 0x7f
     .corereq_high = false,
 .sysclkreq_high = true,
-.suspend_mode = TEGRA_SUSPEND_LP0,
+// LP0 currently broken...
+.suspend_mode = TEGRA_SUSPEND_LP1,
 #if LINUX_VERSION_CODE <= KERNEL_VERSION(2,6,38) /* NB: 2.6.39+ handles this automatically */
 .separate_req = true,
 .wake_enb = SMBA1002_WAKE_KEY_POWER |
