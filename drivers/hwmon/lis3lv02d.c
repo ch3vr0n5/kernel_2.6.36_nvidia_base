@@ -528,6 +528,11 @@ static ssize_t lis3lv02d_position_show(struct device *dev,
 {
 	int x, y, z;
 
+	/* system-server is looping on this device very rapidly. As a workaround,
+	 * delay here to prevent holding up the i2c bus.
+	 */
+	mdelay(MDPS_POLL_INTERVAL);
+
 	mutex_lock(&lis3_dev.mutex);
 	lis3lv02d_get_xyz(&lis3_dev, &x, &y, &z);
 	mutex_unlock(&lis3_dev.mutex);
