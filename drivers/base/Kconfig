@@ -1,5 +1,12 @@
 menu "Generic Driver Options"
 
+config PINMUXDUMPER
+	tristate "Tegra2 realtime pinmux dumper"
+	depends on ARCH_TEGRA_2x_SOC && DEBUG_FS
+	default M
+	---help---
+	  Enable support for dumping in realtime the pinmux config of Tegra2
+
 config UEVENT_HELPER_PATH
 	string "path to uevent helper"
 	depends on HOTPLUG

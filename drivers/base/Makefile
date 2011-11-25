@@ -23,3 +23,4 @@ ifeq ($(CONFIG_DEBUG_DRIVER),y)
 EXTRA_CFLAGS += -DDEBUG
 endif
 
+obj-$(CONFIG_PINMUXDUMPER)		+= tegra-config-peek.o
