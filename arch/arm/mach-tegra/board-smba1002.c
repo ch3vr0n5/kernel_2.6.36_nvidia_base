@@ -319,7 +319,7 @@ tegra_bootloader_fb_start = NvBootArgs.MemHandleArgs[NvBootArgs.FramebufferArgs.
 tegra_bootloader_fb_size = NvBootArgs.MemHandleArgs[NvBootArgs.FramebufferArgs.MemHandleKey - ATAG_NVIDIA_PRESERVED_MEM_0].Size;
 
 pr_info("Nvidia TAG: framebuffer: %lu @ 0x%08lx\n",tegra_bootloader_fb_size,tegra_bootloader_fb_start);
-tegra_bootloader_fb_start = tegra_bootloader_fb_size = 0;
+//tegra_bootloader_fb_start = tegra_bootloader_fb_size = 0;
 }
 
 // LP0 is broken right now. TODO: fix this to reduce power usage during standby...
