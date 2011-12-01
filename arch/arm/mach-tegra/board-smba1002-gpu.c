@@ -411,7 +411,7 @@ int __init smba1002_gpu_register_devices(void)
 	struct resource *res;
 	int err;
 	
-#if defined(DYNAMIC_GPU_MEM)
+#if 0 && defined(DYNAMIC_GPU_MEM)
 	/* Plug in framebuffer 1 memory area and size */
 	if (tegra_fb_start > 0 && tegra_fb_size > 0) {
 		res = nvhost_get_resource_byname(&smba1002_disp1_device,
@@ -458,14 +458,16 @@ int __init smba1002_gpu_register_devices(void)
 	
 	err = platform_add_devices(smba1002_gfx_devices,
 				   ARRAY_SIZE(smba1002_gfx_devices));
-				   
-#if defined(DYNAMIC_GPU_MEM)				   
+
+#if 0 && defined(DYNAMIC_GPU_MEM)
 	/* Move the bootloader framebuffer to our framebuffer */
 	if (tegra_bootloader_fb_start > 0 && tegra_fb_start > 0 &&
 		tegra_fb_size > 0 && tegra_bootloader_fb_size > 0) {
 		tegra_move_framebuffer(tegra_fb_start, tegra_bootloader_fb_start,
 			min(tegra_fb_size, tegra_bootloader_fb_size)); 		
-	}		
+		printk(KERN_INFO "tegrafb: new fb is %lx with size %lu",
+		       tegra_fb_start, min(tegra_fb_size, tegra_bootloader_fb_size));
+	}
 #endif
 
 	/* Register the framebuffers */

@@ -124,9 +124,12 @@ static int tegra_fb_release(struct fb_info *info, int user)
 static int tegra_fb_check_var(struct fb_var_screeninfo *var,
 			      struct fb_info *info)
 {
+
 	if ((var->yres * var->xres * var->bits_per_pixel / 8 * 2) >
-	    info->screen_size)
+	    info->screen_size) {
+		printk(KERN_WARNING "tegra_fb_check_var: res too large for screen\n");
 		return -EINVAL;
+	}
 
 	/* double yres_virtual to allow double buffering through pan_display */
 	var->yres_virtual = var->yres * 2;
@@ -164,6 +167,7 @@ static int tegra_fb_set_par(struct fb_info *info)
 			break;
 
 		default:
+			dev_warn(&tegra_fb->ndev->dev, "Invalid bpp: %d\n", var->bits_per_pixel);
 			return -EINVAL;
 		}
 		info->fix.line_length = var->xres * var->bits_per_pixel / 8;
@@ -240,8 +244,10 @@ static int tegra_fb_setcolreg(unsigned regno, unsigned red, unsigned green,
 	    info->fix.visual == FB_VISUAL_DIRECTCOLOR) {
 		u32 v;
 
-		if (regno >= 16)
+		if (regno >= 16) {
+			printk(KERN_WARNING "setcolreg: invalid regno %d\n", regno);
 			return -EINVAL;
+		}
 
 		red = (red >> (16 - info->var.red.length));
 		green = (green >> (16 - info->var.green.length));
@@ -430,10 +436,10 @@ static int tegra_fb_set_windowattr(struct tegra_fb_info *tegra_fb,
 	win->out_h = flip_win->attr.out_h;
 
 	WARN_ONCE(win->out_x >= xres,
-		"%s:application window x offset exceeds display width(%d)\n",
+		"%s:application window x offset %d exceeds display width(%d)\n",
 		dev_name(&win->dc->ndev->dev), win->out_x, xres);
 	WARN_ONCE(win->out_y >= yres,
-		"%s:application window y offset exceeds display height(%d)\n",
+		"%s:application window y offset %d exceeds display height(%d)\n",
 		dev_name(&win->dc->ndev->dev), win->out_y, yres);
 	WARN_ONCE(win->out_x + win->out_w > xres && win->out_x < xres,
 		"%s:application window width(%d) exceeds display width(%d)\n",
@@ -815,6 +821,8 @@ struct tegra_fb_info *tegra_fb_register(struct nvhost_device *ndev,
 	info->pseudo_palette = pseudo_palette;
 	info->screen_base = fb_base;
 	info->screen_size = fb_size;
+
+	printk(KERN_INFO "tegrafb: screen_size = %lu @ %p\n", fb_size, fb_base);
 
 	strlcpy(info->fix.id, "tegra_fb", sizeof(info->fix.id));
 	info->fix.type		= FB_TYPE_PACKED_PIXELS;
